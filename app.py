@@ -1,7 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from flask_wtf import CSRFProtect
 
+import form
 from config import DevelopmentConfig
+from models import db, Alumnos
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
@@ -11,12 +13,26 @@ csrf = CSRFProtect()
 @app.route("/")
 @app.route("/index")
 def index():
-    return render_template("index.html")
+    create_form = form.UserForm(request.form)
+    # ORM SELECT * FROM alumnos;
+    alumnos = Alumnos.query.all()
+    return render_template("index.html", form=create_form, alumnos=alumnos)
 
 
-@app.route("/alumnos")
+@app.route("/alumnos", methods=["GET", "POST"])
 def alumnos():
-    return render_template("alumnos.html")
+    create_form = form.UserForm(request.form)
+    if request.method == "POST":
+        alumno = Alumnos(
+            nombre=create_form.nombre.data,
+            apellido=create_form.apaterno.data,
+            email=create_form.correo.data,
+        )
+        db.session.add(alumno)
+        db.session.commit()
+        return redirect(url_for("index"))
+
+    return render_template("alumnos.html", form=create_form)
 
 
 @app.errorhandler(404)
@@ -25,4 +41,9 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    csrf.init_app(app)
+    db.init_app(app)
+
+    with app.app_context():
+        db.create_all()
+    app.run()

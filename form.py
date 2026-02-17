@@ -12,7 +12,7 @@ class UserForm(Form):
         ],
     )
     nombre = StringField(
-        "Nombre",
+        "nombre",
         [
             validators.DataRequired(message="El nombre es requerido"),
             validators.length(min=4, max=20, message="Requiere min=4 max=20"),

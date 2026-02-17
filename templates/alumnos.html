@@ -1,43 +1,42 @@
 {% extends "layout.html" %}
 {% block container %}
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Alumnos</title>
-        <link rel="stylesheet" href="{{ url_for('static',filename='dist/output.css') }}">
-    </head>
-    <body>
-    <form class="max-w-sm mx-auto">
+    <form class="w-md" novalidate action="" method="post">
+        {{ form.csrf_token }}
         <div class="mb-5">
-            <label for="id" class="block mb-2.5 text-sm font-medium text-heading">ID</label>
-            <input type="text" id="id"
-                   class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
-                   placeholder="Enter your id" required/>
+            <input type="hidden" name="csrf_token" id="csrf_token" value="{{ csrf_token() }}"/>
         </div>
         <div class="mb-5">
-            <label for="name" class="block mb-2.5 text-sm font-medium text-heading">Nombre</label>
-            <input type="email" id="name"
+            <label for="nombre" class="block mb-2.5 text-sm font-medium text-heading">Nombre</label>
+            <input type="text" id="nombre" name="nombre"
                    class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
-                   placeholder="Enter your name" required/>
+                   placeholder="Ingresa tu nombre" required/>
         </div>
         <div class="mb-5">
-            <label for="lastname" class="block mb-2.5 text-sm font-medium text-heading">Apellido paterno</label>
-            <input type="text" id="lastname"
+            <label for="apaterno" class="block mb-2.5 text-sm font-medium text-heading">Apellido paterno</label>
+            <input type="text" id="apaterno" name="apaterno"
                    class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
-                   placeholder="name@flowbite.com" required/>
+                   placeholder="Ingresa tu apellido" required/>
         </div>
         <div class="mb-5">
-            <label for="email" class="block mb-2.5 text-sm font-medium text-heading">Correo</label>
-            <input type="email" id="email"
+            <label for="correo" class="block mb-2.5 text-sm font-medium text-heading">Correo</label>
+            <input type="email" id="correo" name="correo"
                    class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
-                   placeholder="name@flowbite.com" required/>
+                   placeholder="Ingresa tu correo" required/>
         </div>
-        <button type="submit"
-                class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
-            Submit
-        </button>
+        <div class="flex justify-center gap-10">
+            <button type="submit"
+                    class="inline-flex items-center gap-2 mb-6 text-white bg-sky-500
+          hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium
+          shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
+                Registrar
+            </button>
+            <a href="index"
+               class="inline-flex items-center gap-2 mb-6 text-white bg-red-500
+          hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium
+          shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
+                Cancelar
+            </a>
+        </div>
     </form>
-    </body>
-    </html>
+
 {% endblock %}
