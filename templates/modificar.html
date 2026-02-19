@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% import "_macros.html" as macro %}
+{% block container %}
+    <form class="w-md" novalidate action="" method="post">
+        {{ form.csrf_token }}
+        <div class="mb-5">
+            <input type="hidden" name="csrf_token" id="csrf_token" value="{{ csrf_token() }}"/>
+        </div>
+        <label for="id">Matricula</label>
+        <input type="text" name="id" id="id"
+               class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+               value="{{ id }}" disabled>
+        {{ macro.campoNuevo(form.nombre, value=nombre,  placeholder="Ingrese su nombre", class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body") }}
+        {{ macro.campoNuevo(form.apaterno, value=apellido, placeholder="Ingrese su apellido", class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body") }}
+        {{ macro.campoNuevo(form.correo, value=email, placeholder="Ingrese su correo", class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body") }}
+        <div class="flex justify-center gap-10">
+            <button type="submit"
+                    class="inline-flex w-full justify-center gap-2 mb-6 text-white bg-green-500
+          hover:bg-green-600 focus:ring-4 focus:ring-green-600
+          shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
+                Modificar
+            </button>
+            <a href="index"
+               class="inline-flex w-full justify-center gap-2 mb-6 text-white bg-red-500
+          hover:bg-red-600 focus:ring-4 focus:ring-red-600
+          shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
+                Cancelar
+            </a>
+        </div>
+    </form>
+
+{% endblock %}
