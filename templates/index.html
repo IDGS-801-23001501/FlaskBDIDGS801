@@ -24,10 +24,13 @@
                             Nombre
                         </th>
                         <th scope="col" class="px-6 py-3 font-medium">
-                            Apellido
+                            Apellidos
                         </th>
                         <th scope="col" class="px-6 py-3 font-medium">
                             Correo electronico
+                        </th>
+                        <th scope="col" class="px-6 py-3 font-medium">
+                            Telefono
                         </th>
                         <th scope="col" class="px-6 py-3 font-medium">
                             Detalles
@@ -47,10 +50,13 @@
                             {{ alumno.nombre }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ alumno.apellido }}
+                            {{ alumno.apellidos }}
                         </td>
                         <td class="px-6 py-4">
                             {{ alumno.email }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ alumno.telefono }}
                         </td>
                         <td class="px-6 py-4">
                             <a href="detalles?id={{ alumno.id }}"

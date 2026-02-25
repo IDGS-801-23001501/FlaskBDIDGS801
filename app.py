@@ -28,8 +28,9 @@ def alumnos():
     if request.method == "POST":
         alumno = Alumnos(
             nombre=create_form.nombre.data,
-            apellido=create_form.apaterno.data,
+            apellidos=create_form.apellidos.data,
             email=create_form.correo.data,
+            telefono=create_form.telefono.data,
         )
         db.session.add(alumno)
         db.session.commit()
@@ -47,11 +48,16 @@ def detalles():
         alumno = db.session.query(Alumnos).filter(Alumnos.id == id).first()
 
         nombre = alumno.nombre
-        apellido = alumno.apellido
+        apellidos = alumno.apellidos
         email = alumno.email
+        telefono = alumno.telefono
 
         return render_template(
-            "detalles.html", nombre=nombre, apellido=apellido, email=email
+            "detalles.html",
+            nombre=nombre,
+            apellidos=apellidos,
+            email=email,
+            telefono=telefono,
         )
 
 
@@ -62,15 +68,17 @@ def modificar():
         id = request.args.get("id")
         alumno = db.session.query(Alumnos).filter(Alumnos.id == id).first()
         nombre = alumno.nombre
-        apellido = alumno.apellido
+        apellidos = alumno.apellidos
         email = alumno.email
+        telefono = alumno.telefono
         return render_template(
             "modificar.html",
             id=id,
             form=create_form,
             nombre=nombre,
-            apellido=apellido,
+            apellidos=apellidos,
             email=email,
+            telefono=telefono,
         )
 
     if request.method == "POST":
@@ -78,8 +86,9 @@ def modificar():
         alumno = db.session.query(Alumnos).filter(Alumnos.id == id).first()
         alumno.id = id
         alumno.nombre = create_form.nombre.data
-        alumno.apellido = create_form.apaterno.data
+        alumno.apellidos = create_form.apellidos.data
         alumno.email = create_form.correo.data
+        alumno.telefono = create_form.telefono.data
 
         db.session.add(alumno)
         db.session.commit()
@@ -97,15 +106,17 @@ def eliminar():
         if alumno:
             create_form.matricula.data = alumno.id
             create_form.nombre.data = alumno.nombre
-            create_form.apaterno.data = alumno.apellido
+            create_form.apellidos.data = alumno.apellidos
             create_form.correo.data = alumno.email
+            create_form.telefono.data = alumno.telefono
             return render_template(
                 "eliminar.html",
                 form=create_form,
                 nombre=alumno.nombre,
-                apellido=alumno.apellido,
+                apellidos=alumno.apellidos,
                 email=alumno.email,
                 matricula=alumno.id,
+                telefono=alumno.telefono,
             )
 
     if request.method == "POST":

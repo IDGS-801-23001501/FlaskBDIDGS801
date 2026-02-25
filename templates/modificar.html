@@ -11,8 +11,9 @@
                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                value="{{ id }}" disabled>
         {{ macro.campoNuevo(form.nombre, value=nombre,  placeholder="Ingrese su nombre", class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body") }}
-        {{ macro.campoNuevo(form.apaterno, value=apellido, placeholder="Ingrese su apellido", class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body") }}
+        {{ macro.campoNuevo(form.apellidos, value=apellido, placeholder="Ingrese su apellido", class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body") }}
         {{ macro.campoNuevo(form.correo, value=email, placeholder="Ingrese su correo", class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body") }}
+        {{ macro.campoNuevo(form.telefono, value=telefono, placeholder="Ingrese su telefono", class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body") }}
         <div class="flex justify-center gap-10">
             <button type="submit"
                     class="inline-flex w-full justify-center gap-2 mb-6 text-white bg-green-500

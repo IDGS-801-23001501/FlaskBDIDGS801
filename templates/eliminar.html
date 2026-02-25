@@ -9,7 +9,11 @@
         <label for="id">Matricula</label>
         <input type="text" name="id" id="id"
                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-               value="{{ id }}" disabled>
+               value="{{ matricula }}" disabled>
+        {{ macro.campoNuevo(form.nombre, value=nombre, disabled="True",  placeholder="Ingrese su nombre", class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body") }}
+        {{ macro.campoNuevo(form.apellidos, value=apellidos, disabled="True", placeholder="Ingrese su apellido", class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body") }}
+        {{ macro.campoNuevo(form.correo, value=email, disabled="True", placeholder="Ingrese su correo", class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body") }}
+        {{ macro.campoNuevo(form.telefono, value=telefono, disabled="True", placeholder="Ingrese su telefono", class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body") }}
         <div class="flex justify-center gap-10">
             <button type="submit"
                     class="inline-flex w-full justify-center gap-2 mb-6 text-white bg-green-500
