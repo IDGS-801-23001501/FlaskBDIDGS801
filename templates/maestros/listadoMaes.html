@@ -2,11 +2,11 @@
 {% block container %}
     <section class="bg-neutral-primary">
         <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
-            <div class="w-full inline-flex justify-end">
+            <div class="w-full inline-flex justify-end mb-4">
                 <a href="/maestros/crear"
                    class="inline-flex items-center gap-2 mb-6 text-white bg-green-500
-          hover:bg-green-600 focus:ring-4 focus:ring-green-600
-          shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
+           hover:bg-green-600 focus:ring-4 focus:ring-green-600
+           shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                          xmlns="http://www.w3.org/2000/svg"
                          width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -60,7 +60,7 @@
                         </td>
                         <td class="px-6 py-4">
                             <a href="/maestros/detalles?matricula={{ maestro.matricula }}"
-                               class="inline-flex items-center gap-2 mb-6 text-white bg-sky-500
+                               class="inline-flex items-center gap-2 text-white bg-sky-500
           hover:bg-sky-600 focus:ring-4 focus:ring-sky-600
           shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -70,12 +70,12 @@
                                           stroke-width="2"
                                           d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
                                 </svg>
-                                Ver detalles
+                                Detalles
                             </a>
                         </td>
                         <td class="px-6 py-4">
                             <a href="/maestros/modificar?matricula={{ maestro.matricula }}"
-                               class="inline-flex items-center gap-2 mb-6 text-white bg-amber-500
+                               class="inline-flex items-center gap-2 text-white bg-amber-500
           hover:bg-amber-600 focus:ring-4 focus:ring-amber-600
           shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -91,7 +91,7 @@
                         </td>
                         <td class="px-6 py-4">
                             <a href="/maestros/eliminar?matricula={{ maestro.matricula }}"
-                               class="inline-flex items-center gap-2 mb-6 text-white bg-red-500
+                               class="inline-flex items-center gap-2 text-white bg-red-500
           hover:bg-red-600 focus:ring-4 focus:ring-red-600
           shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"

@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% import "_macros.html" as macro %}
+{% block container %}
+
+    <div class="max-w-xl mx-auto mt-10">
+
+        <h2 class="text-xl font-bold mb-6 text-center">
+            Inscribir alumno en {{ curso.nombre }}
+        </h2>
+
+        <form class="w-md" novalidate method="post">
+
+            <!-- CSRF -->
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+            <!-- Select alumnos -->
+            <div class="mb-5">
+                <label class="block mb-2 text-sm font-medium text-heading">
+                    Seleccione alumno
+                </label>
+
+                <select name="alumno_id"
+                        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs">
+
+                    {% for alumno in alumnos %}
+                        <option value="{{ alumno.id }}">
+                            {{ alumno.nombre }} {{ alumno.apellidos }}
+                        </option>
+                    {% else %}
+                        <option disabled>
+                            No hay alumnos disponibles
+                        </option>
+                    {% endfor %}
+
+                </select>
+            </div>
+
+            <!-- Botones -->
+            <div class="flex justify-center gap-4">
+
+                <button type="submit"
+                        class="inline-flex flex-1 justify-center gap-2 text-white bg-green-500
+                    hover:bg-green-600 focus:ring-4 focus:ring-green-600
+                    shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
+                    Inscribir
+                </button>
+
+                <a href="{{ url_for('cursos.index') }}"
+                   class="inline-flex flex-1 justify-center items-center gap-2 text-white bg-sky-500
+               hover:bg-sky-600 focus:ring-4 focus:ring-sky-600
+               shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                         width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                              stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+                    </svg>
+                    Cancelar
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+{% endblock %}

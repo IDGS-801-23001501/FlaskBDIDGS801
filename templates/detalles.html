@@ -9,8 +9,20 @@
             <h5 class="mb-0.5 text-xl font-semibold tracking-tight text-heading">{{ nombre }} {{ apellidos }}</h5>
             <span class="text-sm text-body">{{ email }}</span>
             <span class="text-sm text-body">{{ telefono }}</span>
+            <div class="w-full mt-6 text-left">
+                <p class="text-sm font-semibold text-heading mb-2">Cursos inscritos</p>
+                {% if cursos and cursos|length > 0 %}
+                    <ul class="list-disc list-inside text-sm text-body space-y-1">
+                        {% for curso in cursos %}
+                            <li>{{ curso.nombre }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-sm text-body">No se encuentra inscrito en ningún curso.</p>
+                {% endif %}
+            </div>
             <div class="flex mt-4 md:mt-6 gap-4">
-                <a href="index"
+                <a href="/alumnos"
                    class="inline-flex items-center text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                          xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">

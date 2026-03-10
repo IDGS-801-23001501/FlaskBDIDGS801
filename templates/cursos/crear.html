@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% import "_macros.html" as macro %}
+{% block container %}
+
+    <form class="w-md" novalidate action="" method="post">
+
+        {# Si estás usando FlaskForm deja esto, si usas Form normal elimínalo #}
+        {{ form.csrf_token }}
+        <div class="mb-5">
+            <input type="hidden" name="csrf_token" id="csrf_token" value="{{ csrf_token() }}"/>
+        </div>
+
+        {{ macro.campoNuevo(
+        form.nombre,
+        placeholder="Ingrese el nombre del curso",
+        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+    ) }}
+
+        {{ macro.campoNuevo(
+        form.maestro_id,
+        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs"
+    ) }}
+
+        <div class="flex justify-center gap-4">
+            <button type="submit"
+                    class="inline-flex flex-1 justify-center gap-2 text-white bg-green-500
+                hover:bg-green-600 focus:ring-4 focus:ring-green-600
+                shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
+                Registrar
+            </button>
+
+            <a href="{{ url_for('cursos.index') }}"
+               class="inline-flex flex-1 justify-center items-center gap-2 text-white bg-sky-500
+           hover:bg-sky-600 focus:ring-4 focus:ring-sky-600
+           shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                         width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                              stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+                    </svg>
+                    Cancelar
+            </a>
+        </div>
+
+    </form>
+
+{% endblock %}

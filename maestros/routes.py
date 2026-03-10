@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
 
 import form
-from models import Meestros
+from models import Maestros
 from models import db
 from . import maestros
 
@@ -9,7 +9,7 @@ from . import maestros
 @maestros.route("/maestros", methods=["GET", "POST"])
 def list_maestros():
     create_form = form.TeacherForm(request.form)
-    maestros_list = Meestros.query.all()
+    maestros_list = Maestros.query.all()
     return render_template(
         "maestros/listadoMaes.html", form=create_form, maestros=maestros_list
     )
@@ -19,7 +19,7 @@ def list_maestros():
 def create_maestros():
     create_form = form.TeacherForm(request.form)
     if request.method == "POST":
-        maestro = Meestros(
+        maestro = Maestros(
             nombre=create_form.nombre.data,
             apellidos=create_form.apellidos.data,
             email=create_form.correo.data,
@@ -38,7 +38,7 @@ def eliminar_maestro():
     if request.method == "GET":
         matricula = request.args.get("matricula")
         maestro = (
-            db.session.query(Meestros).filter(Meestros.matricula == matricula).first()
+            db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
         )
 
         print(maestro)
@@ -62,10 +62,27 @@ def eliminar_maestro():
     if request.method == "POST":
         matricula = request.args.get("matricula")
         maestro = (
-            db.session.query(Meestros).filter(Meestros.matricula == matricula).first()
+            db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
         )
 
         if maestro:
+            if maestro.cursos:
+                error = "No se puede eliminar: el maestro tiene cursos asignados."
+                create_form.nombre.data = maestro.nombre
+                create_form.apellidos.data = maestro.apellidos
+                create_form.correo.data = maestro.email
+                create_form.especialidad.data = maestro.especialidad
+                return render_template(
+                    "maestros/eliminar.html",
+                    form=create_form,
+                    matricula=maestro.matricula,
+                    nombre=maestro.nombre,
+                    apellidos=maestro.apellidos,
+                    especialidad=maestro.especialidad,
+                    email=maestro.email,
+                    error=error,
+                )
+
             db.session.delete(maestro)
             db.session.commit()
 
@@ -83,7 +100,7 @@ def modificar_maestro():
     if not matricula:
         return redirect(url_for("maestros.list_maestros"))
 
-    maestro = db.session.query(Meestros).filter(Meestros.matricula == matricula).first()
+    maestro = db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
 
     # Si no existe el maestro, redirige
     if not maestro:
@@ -117,13 +134,15 @@ def modificar_maestro():
 
 @maestros.route("/maestros/detalles", methods=["GET", "POST"])
 def detalles():
-    create_form = form.UserForm(request.form)
+    create_form = form.TeacherForm(request.form)
     if request.method == "GET":
         matricula = request.args.get("matricula")
-        # select * from alumnos where id == id
         maestro = (
-            db.session.query(Meestros).filter(Meestros.matricula == matricula).first()
+            db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
         )
+
+        if not maestro:
+            return redirect(url_for("maestros.list_maestros"))
 
         nombre = maestro.nombre
         apellidos = maestro.apellidos

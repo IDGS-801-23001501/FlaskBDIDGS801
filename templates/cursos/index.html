@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+{% block container %}
+    <section class="bg-neutral-primary">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
+            <div class="w-full inline-flex justify-end mb-4">
+                <a href="{{ url_for('cursos.crear_curso') }}"
+                   class="inline-flex items-center gap-2 mb-6 text-white bg-green-500
+            hover:bg-green-600 focus:ring-4 focus:ring-green-600
+            shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
+                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                         width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M5 12h14m-7 7V5"/>
+                    </svg>
+                    Crear Curso
+                </a>
+            </div>
+            <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+                <table class="w-full text-sm text-left rtl:text-right text-body">
+                    <thead class="bg-neutral-secondary-soft border-b border-default">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 font-medium">Curso</th>
+                        <th scope="col" class="px-6 py-3 font-medium">Maestro</th>
+                        <th scope="col" class="px-6 py-3 font-medium">Alumnos</th>
+                        <th scope="col" class="px-6 py-3 font-medium">Ver</th>
+                        <th scope="col" class="px-6 py-3 font-medium">Inscribir</th>
+                        <th scope="col" class="px-6 py-3 font-medium">Actualizar</th>
+                        <th scope="col" class="px-6 py-3 font-medium">Eliminar</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for curso in cursos %}
+                        <tr class="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
+                            <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+                                {{ curso.nombre }}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ curso.maestro.nombre }} {{ curso.maestro.apellidos }}
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="bg-brand text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    {{ curso.alumnos|length }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="{{ url_for('cursos.detalles', id=curso.id) }}"
+                                   class="inline-flex items-center gap-2 text-white bg-sky-500
+           hover:bg-sky-600 focus:ring-4 focus:ring-sky-600
+           shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
+                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                         width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                        <path stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7Z"/>
+                                    </svg>
+                                    Detalles
+                                </a>
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="{{ url_for('cursos.inscribir', id=curso.id) }}"
+                                   class="inline-flex items-center gap-2 text-white bg-green-500
+           hover:bg-green-600 focus:ring-4 focus:ring-green-600
+           shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
+                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                         width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2"
+                                              d="M16 12h4m-2 2v-4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                    </svg>
+                                    Inscribir
+                                </a>
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="{{ url_for('cursos.modificar_curso', id=curso.id) }}"
+                                   class="inline-flex items-center gap-2 text-white bg-amber-500
+           hover:bg-amber-600 focus:ring-4 focus:ring-amber-600
+           shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
+                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                         width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2"
+                                              d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                                    </svg>
+                                    Actualizar
+                                </a>
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="{{ url_for('cursos.eliminar', id=curso.id) }}"
+                                   class="inline-flex items-center gap-2 text-white bg-red-500
+           hover:bg-red-600 focus:ring-4 focus:ring-red-600
+           shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
+                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                         width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2"
+                                              d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                    </svg>
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="px-6 py-6 text-center text-body">
+                                No hay cursos registrados
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock container %}

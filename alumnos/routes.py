@@ -1,12 +1,13 @@
 from flask import render_template, request, redirect, url_for
+from sqlalchemy.orm import joinedload
 
 import form
 from models import db, Alumnos
 from . import alumnos
 
 
-@alumnos.route("/")
-@alumnos.route("/index")
+@alumnos.route("/alumnos")
+@alumnos.route("/alumnos/index")
 def index():
     create_form = form.UserForm(request.form)
     # ORM SELECT * FROM alumnos;
@@ -14,7 +15,7 @@ def index():
     return render_template("index.html", form=create_form, alumnos=alumnos)
 
 
-@alumnos.route("/alumnos", methods=["GET", "POST"])
+@alumnos.route("/alumnos/crear", methods=["GET", "POST"])
 def create_alumnos():
     create_form = form.UserForm(request.form)
     if request.method == "POST":
@@ -31,18 +32,27 @@ def create_alumnos():
     return render_template("alumnos.html", form=create_form)
 
 
-@alumnos.route("/detalles", methods=["GET", "POST"])
+@alumnos.route("/alumnos/detalles", methods=["GET", "POST"])
 def detalles():
     create_form = form.UserForm(request.form)
     if request.method == "GET":
-        id = request.args.get("id")
+        id = request.args.get("id", type=int)
         # select * from alumnos where id == id
-        alumno = db.session.query(Alumnos).filter(Alumnos.id == id).first()
+        alumno = (
+            db.session.query(Alumnos)
+            .options(joinedload(Alumnos.cursos))
+            .filter(Alumnos.id == id)
+            .first()
+        )
+
+        if not alumno:
+            return redirect(url_for("alumnos.index"))
 
         nombre = alumno.nombre
         apellidos = alumno.apellidos
         email = alumno.email
         telefono = alumno.telefono
+        cursos = alumno.cursos
 
         return render_template(
             "detalles.html",
@@ -50,10 +60,11 @@ def detalles():
             apellidos=apellidos,
             email=email,
             telefono=telefono,
+            cursos=cursos,
         )
 
 
-@alumnos.route("/modificar", methods=["GET", "POST"])
+@alumnos.route("/alumnos/modificar", methods=["GET", "POST"])
 def modificar():
     create_form = form.UserForm(request.form)
     if request.method == "GET":
@@ -88,7 +99,7 @@ def modificar():
     return None
 
 
-@alumnos.route("/eliminar", methods=["GET", "POST"])
+@alumnos.route("/alumnos/eliminar", methods=["GET", "POST"])
 def eliminar():
     create_form = form.UserForm(request.form)
     if request.method == "GET":
